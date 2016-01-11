@@ -6,6 +6,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import command.Command;
+
 /**
  * @author Sebastien Arola, Tanguy Heller
  *
