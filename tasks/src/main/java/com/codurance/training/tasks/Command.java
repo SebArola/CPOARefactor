@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * @author SebArola
+ * @author  Sebastien Arola, Tanguy Heller
  *	This class provide function to manage the command enter by the user.
  */
 public class Command {
@@ -17,10 +17,11 @@ public class Command {
 
 		
 		public Command(String inputCmd){
-			 String[] commandRest = inputCmd.split(" ", 11);
+			 String[] commandRest = inputCmd.split(" ", 4);
 		     setCmd_Name(commandRest[0]);
 		     ArrayList<String> onlyParameter = new ArrayList<String>();
-		     for(int i=0; i<commandRest.length ; i++ ){
+		    
+		     for(int i=1; i<commandRest.length ; i++ ){
 		    	 onlyParameter.add(commandRest[i]);
 		     }
 		     setCmd_Parameter(onlyParameter);

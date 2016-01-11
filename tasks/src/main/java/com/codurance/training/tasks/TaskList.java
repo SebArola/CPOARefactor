@@ -17,6 +17,8 @@ public final class TaskList implements Runnable {
     private final PrintWriter out;
 
     private long lastId = 0;
+    
+
 
     public static void main(String[] args) throws Exception {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -33,45 +35,73 @@ public final class TaskList implements Runnable {
         while (true) {
             out.print("> ");
             out.flush();
-            String command;
+            Command command;
             try {
-                command = in.readLine();
+                command = new Command(in.readLine());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            if (command.equals(QUIT)) {
+            
+            if (command.getCmd_Name().equals(QUIT)) {
                 break;
             }
             execute(command);
         }
     }
 
-    private void execute(String commandLine) {
-        String[] commandRest = commandLine.split(" ", 2);
-        String command = commandRest[0];
-        switch (command) {
-            case "show":
-                show();
+    private void execute(Command command) {
+       
+        switch (command.getCmd_Name()) {
+            case "view":
+                view();
                 break;
             case "add":
-                add(commandRest[1]);
+                add(command.getCmd_Parameter());
                 break;
             case "check":
-                check(commandRest[1]);
+                check(command.getCmd_Parameter());
                 break;
             case "uncheck":
-                uncheck(commandRest[1]);
+                uncheck(command.getCmd_Parameter());
                 break;
             case "help":
                 help();
                 break;
+            case "delete":
+            	delete(command.getCmd_Parameter());
+            	break;
             default:
-                error(command);
+                error(command.getCmd_Name());
                 break;
         }
     }
 
-    private void show() {
+    /**
+	 * 
+	 */
+	private void delete(ArrayList<String> idString) {
+		if(idString.size()<2 ){
+			out.println("Wrong command. Type help for help");
+		}
+		try{
+			   int id = Integer.parseInt(idString.get(0));
+			   
+			   List<Task> task = tasks.get(idString.get(1));
+			   for (Task t : task){
+				   if(t.getId()==id){
+					   tasks.get(idString.get(1)).remove(t);
+				   }
+			   }
+			  
+		        out.printf("Could not find a task with an ID of %d.", id);
+		        out.println();
+		}catch(Exception e){
+			out.println("Please enter the task id before the project name.");
+		}
+		
+	}
+
+	private void view() {
         for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {
             out.println(project.getKey());
             for (Task task : project.getValue()) {
@@ -81,41 +111,38 @@ public final class TaskList implements Runnable {
         }
     }
 
-    private void add(String commandLine) {
-        String[] subcommandRest = commandLine.split(" ", 2);
-        String subcommand = subcommandRest[0];
-        if (subcommand.equals("project")) {
-            addProject(subcommandRest[1]);
-        } else if (subcommand.equals("task")) {
-            String[] projectTask = subcommandRest[1].split(" ", 2);
-            addTask(projectTask[0], projectTask[1]);
+    private void add(ArrayList<String> command) {
+        if (command.get(0).equals("project")) {
+            addProject(command);
+        } else if (command.get(0).equals("task")) {
+            addTask(command.get(1),command.get(2));
         }
     }
 
-    private void addProject(String name) {
-        tasks.put(name, new ArrayList<Task>());
+    private void addProject(ArrayList<String> name) {
+        tasks.put(name.get(1), new ArrayList<Task>());
     }
 
     private void addTask(String project, String description) {
         List<Task> projectTasks = tasks.get(project);
         if (projectTasks == null) {
-            out.printf("Could not find a project with the name \"%s\".", project);
+            out.printf("Couldn't find a project with the name \"%s\".", project);
             out.println();
             return;
         }
         projectTasks.add(new Task(nextId(), description, false));
     }
 
-    private void check(String idString) {
+    private void check(ArrayList<String> idString) {
         setDone(idString, true);
     }
 
-    private void uncheck(String idString) {
+    private void uncheck(ArrayList<String> idString) {
         setDone(idString, false);
     }
 
-    private void setDone(String idString, boolean done) {
-        int id = Integer.parseInt(idString);
+    private void setDone(ArrayList<String> idString, boolean done) {
+        int id = Integer.parseInt(idString.get(0));
         for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {
             for (Task task : project.getValue()) {
                 if (task.getId() == id) {
