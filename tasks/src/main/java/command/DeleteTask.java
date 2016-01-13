@@ -5,7 +5,7 @@ package command;
 
 import java.util.List;
 
-import Controler.CtrlTask;
+import Modele.Project;
 import Modele.Task;
 import Modele.TaskMap;
 
@@ -13,21 +13,23 @@ import Modele.TaskMap;
  * @author seb
  *
  */
-public class DeleteTask extends Command {
-	int id;
-	String proj;
+public class DeleteTask implements Command {
+	private int id;
+	private String proj;
+	private TaskMap tasks;
 	/**
 	 * 
 	 */
-	public DeleteTask(String tId , String prj) {
+	public DeleteTask(String tId , String prj, TaskMap tm) {
 		try{
-			   id = Integer.parseInt(tId);
+			   this.id = Integer.parseInt(tId);
 		
 		}catch(Exception e){
 			System.out.println("Please enter the task id before the project name.");
 		}
 		
-		 proj = prj;
+		 this.proj = prj;
+		 this.tasks=tm ;
 	}
 
 	/* (non-Javadoc)
@@ -35,12 +37,29 @@ public class DeleteTask extends Command {
 	 */
 	@Override
 	public void run() {
-		List<Task> task = CtrlTask.tasks.getTasks().get(proj);
+		Task temp = new Task();
+		Project taskProj = null;
+		for(Project pTemp : this.tasks.getTasks().keySet()){
+			if(pTemp.getpName().equals(this.proj)){
+				taskProj = pTemp;
+			}
+		}
+		List<Task> task = this.tasks.getTasks().get(taskProj);
 		   for (Task t : task){
-			   if(t.getId()==id){
-				   CtrlTask.tasks.getTasks().get(proj).remove(t);
+			   if(t.getId()==this.id){
+				   temp = t;
+				   
 			   }
 		   }
+		   this.tasks.getTasks().get(taskProj).remove(temp);
+	}
+
+	/* (non-Javadoc)
+	 * @see command.Command#man()
+	 */
+	@Override
+	public void man() {
+		// TODO Auto-generated method stub
 		
 	}
 

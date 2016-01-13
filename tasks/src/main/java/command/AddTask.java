@@ -3,9 +3,7 @@
  */
 package command;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import Modele.Project;
 import Modele.Task;
 import Modele.TaskMap;
 
@@ -13,27 +11,44 @@ import Modele.TaskMap;
  * @author seb
  *
  */
-public class AddTask extends Command{
-	String proj ;
-	String taskDesc ;
-	TaskMap taskMap;
+public class AddTask implements Command {
+	private String proj;
+	private String taskDesc;
+	private TaskMap taskMap;
 
 	/**
 	 * 
 	 */
 	public AddTask(String project, String taskDes, TaskMap tm) {
-		proj = project;
-		taskDesc = taskDes;
-		taskMap = tm;
+		this.proj = project;
+		this.taskDesc = taskDes;
+		this.taskMap = tm;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see command.Command#run()
 	 */
 	@Override
 	public void run() {
 		
-       taskMap.getTasks().get(proj).add(new Task(TaskMap.nextId(), taskDesc, false));
+		Project taskProj = null;
+		for(Project pTemp : this.taskMap.getTasks().keySet()){
+			if(pTemp.getpName().equals(this.proj)){
+				taskProj = pTemp;
+			}
+		}
+		this.taskMap.getTasks().get(taskProj).add(new Task(TaskMap.nextId(), this.taskDesc, false));
+
+	}
+
+	/* (non-Javadoc)
+	 * @see command.Command#man()
+	 */
+	@Override
+	public void man() {
+		// TODO Auto-generated method stub
 		
 	}
 

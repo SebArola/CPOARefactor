@@ -3,41 +3,37 @@
  */
 package Modele;
 
-import java.util.ArrayList;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * @author seb
+ * @author Sébastien Arola, Tanguy Heller
  *
  */
 public class TaskMap {
 	  private static long lastId = 0;
-	  private Map<String, List<Task>> tasks;
+	  private Map<Project, List<Task>> tasks;
 
 	/**
-	 * 
+	 * Constructor of the model TaskMap. It initialize the Map with a LinkedHashMap
 	 */
 	public TaskMap() {
-		tasks = new LinkedHashMap<>();
+		this.tasks = new LinkedHashMap<>();
 	}
 	
 	/**
 	 * @return the tasks
 	 */
-	public Map<String, List<Task>> getTasks() {
-		return tasks;
+	public Map<Project, List<Task>> getTasks() {
+		return this.tasks;
 	}
 	
-	private void check(String idString) {
-	       
-	}
-
-	private void uncheck(ArrayList<String> idString) {
-	       
-	}
-	
+	/**
+	 * Compute the next task id.
+	 * @return task id
+	 */
 	 public static long nextId() {
 	        return ++lastId;
 	    }
