@@ -13,6 +13,10 @@ import Modele.TaskMap;
 public class DeleteProject implements Command  {
 	private String proj;
 	private TaskMap tasks;
+	
+	public DeleteProject(){
+		
+	}
 	/**
 	 * 
 	 */
@@ -39,9 +43,8 @@ public class DeleteProject implements Command  {
 	 * @see command.Command#man()
 	 */
 	@Override
-	public void man() {
-		// TODO Auto-generated method stub
-		
+	public void man(String input) {
+		System.out.println("Bad use of the command you wrote: " + input + "\nThe command must be : [delete project <project name>]\n");	
 	}
 
 }

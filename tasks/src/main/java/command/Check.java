@@ -18,6 +18,10 @@ public class Check implements Command{
 	
 	private int id;
 	private TaskMap tasks;
+	
+	public Check(){
+		
+	}
 	/**
 	 * 
 	 */
@@ -52,9 +56,8 @@ public class Check implements Command{
 	 * @see command.Command#man()
 	 */
 	@Override
-	public void man() {
-		// TODO Auto-generated method stub
-		
+	public void man(String input) {
+		System.out.println("Bad use of the command you wrote: " + input + "\nThe command must be : [check <task name>]\n");
 	}
 
 }

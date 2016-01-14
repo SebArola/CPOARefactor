@@ -31,7 +31,7 @@ public class View implements Command {
 	public void run() {
 		
 		 for (Map.Entry<Project, List<Task>> project : this.taskMap.getTasks().entrySet()) {
-	            System.out.println(project.getKey());
+	            System.out.println(project.getKey().getpName());
 	            for (Task task : project.getValue()) {
 	            	System.out.printf("    [%c] %d: %s [%s]%n", (task.isDone() ? 'x' : ' '), task.getId(), task.getDescription(), (task.getDeadLines().equals("0/0/0") ? "no deadline" : "Deadline :"+task.getDeadLines()));
 	            }
@@ -44,9 +44,8 @@ public class View implements Command {
 	 * @see command.Command#man()
 	 */
 	@Override
-	public void man() {
-		// TODO Auto-generated method stub
-		
+	public void man(String input) {
+		System.out.println("Bad use of the command you wrote: " + input + "\nThe command must be : [add project <project name>]");	
 	}
 
 }

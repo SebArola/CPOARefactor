@@ -17,6 +17,10 @@ public class Deadlines implements Command {
 	private int month;
 	private int year;
 	private TaskMap tasks;
+	
+	public Deadlines(){
+		
+	}
 	/**
 	 * 
 	 */
@@ -52,8 +56,7 @@ public class Deadlines implements Command {
 	 * @see command.Command#man()
 	 */
 	@Override
-	public void man() {
-		// TODO Auto-generated method stub
-		
+	public void man(String input) {
+		System.out.println("Bad use of the command you wrote: " + input + "\nThe command must be : [deadlines <task id> <dd/mm/yyyy>]\n");	
 	}
 }

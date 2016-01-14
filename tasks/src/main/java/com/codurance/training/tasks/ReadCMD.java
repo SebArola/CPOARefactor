@@ -28,11 +28,11 @@ public class ReadCMD {
 	}
 
 	public String run() {
-		out.print("> ");
-		out.flush();
+		this.out.print("> ");
+		this.out.flush();
 		String command;
 		try {
-			command = in.readLine();
+			command = this.in.readLine();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

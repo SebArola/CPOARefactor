@@ -16,6 +16,9 @@ public class AddTask implements Command {
 	private String taskDesc;
 	private TaskMap taskMap;
 
+	public AddTask(){
+		
+	}
 	/**
 	 * 
 	 */
@@ -47,9 +50,8 @@ public class AddTask implements Command {
 	 * @see command.Command#man()
 	 */
 	@Override
-	public void man() {
-		// TODO Auto-generated method stub
-		
+	public void man (String input) {
+		System.out.println("Bad use of the command you wrote: " + input + "\nThe command must be : [add task <project name> <task name>]\n");
 	}
 
 }

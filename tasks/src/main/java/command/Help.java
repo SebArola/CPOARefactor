@@ -21,6 +21,7 @@ public class Help implements Command{
 		  System.out.println("  uncheck <task ID>");
 		  System.out.println("  delete  project <project name>");
 		  System.out.println("  delete  task <task ID> <project name>");
+		  System.out.println("  deadlines <task id> <dd/mm/yyyy>");
 		  System.out.println();
 	}
 
@@ -28,8 +29,7 @@ public class Help implements Command{
 	 * @see command.Command#man()
 	 */
 	@Override
-	public void man() {
-		// TODO Auto-generated method stub
-		
+	public void man(String input) {
+		System.out.println("Bad use of the command you wrote: " + input + "\nThe command must be : [add project <project name>]");	
 	}
 }

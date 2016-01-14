@@ -17,6 +17,10 @@ public class DeleteTask implements Command {
 	private int id;
 	private String proj;
 	private TaskMap tasks;
+	
+	public DeleteTask(){
+		
+	}
 	/**
 	 * 
 	 */
@@ -58,9 +62,8 @@ public class DeleteTask implements Command {
 	 * @see command.Command#man()
 	 */
 	@Override
-	public void man() {
-		// TODO Auto-generated method stub
-		
+	public void man(String input) {
+		System.out.println("Bad use of the command you wrote: " + input + "\nThe command must be : [delete task <task id> <project name>]\n");	
 	}
 
 }

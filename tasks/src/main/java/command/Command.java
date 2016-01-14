@@ -9,7 +9,8 @@ package command;
  *	.
  */
 public interface Command {
+		
 		public void run();
 		
-		public void man();
+		public void man(String input);
 }

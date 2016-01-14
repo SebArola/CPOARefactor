@@ -14,8 +14,9 @@ public final class CtrlTask {
 	}
 
 	public void run(String commandLine) {
+		String cmdInput = commandLine ;
 
-		String[] commandRest = commandLine.split(" ", 4);
+		String[] commandRest = cmdInput.split(" ", 4);
 		String command = commandRest[0];
 		switch (command) {
 		case "view":
@@ -30,7 +31,10 @@ public final class CtrlTask {
 				this.cmd = new AddTask(commandRest[2], commandRest[3], this.tasks);
 				this.cmd.run();
 			}else{
-				this.cmd.man();
+				this.cmd = new AddTask();
+				this.cmd.man(commandLine);
+				this.cmd = new AddProject();
+				this.cmd.man(commandLine);
 			}
 			break;
 
@@ -39,7 +43,8 @@ public final class CtrlTask {
 				this.cmd = new Check(commandRest[1],this.tasks);
 				this.cmd.run();
 			}else{
-				this.cmd.man();
+				this.cmd = new Check();
+				this.cmd.man(commandLine);
 			}
 			
 			break;
@@ -48,7 +53,8 @@ public final class CtrlTask {
 				this.cmd = new Uncheck(commandRest[1],this.tasks);
 				this.cmd.run();
 			}else{
-				this.cmd.man();
+				this.cmd = new Uncheck();
+				this.cmd.man(commandLine);
 			}
 			
 			break;
@@ -64,7 +70,10 @@ public final class CtrlTask {
 				this.cmd = new DeleteTask(commandRest[2], commandRest[3],this.tasks);
 				this.cmd.run();
 			}else{
-				this.cmd.man();
+				this.cmd = new DeleteProject();
+				this.cmd.man(commandLine);
+				this.cmd = new DeleteTask();
+				this.cmd.man(commandLine);
 			}
 
 			break;
@@ -73,7 +82,8 @@ public final class CtrlTask {
 				this.cmd = new Deadlines(commandRest[1], commandRest[2],this.tasks);
 				this.cmd.run();
 			}else{
-				this.cmd.man();
+				this.cmd = new Deadlines();
+				this.cmd.man(commandLine);
 			}
 			
 			break;
