@@ -8,7 +8,9 @@ import Modele.Task;
 import Modele.TaskMap;
 
 /**
- * @author seb
+ * The command DeadLines is called when the user write deadlines <task name> <dd/mm/yyyy>.
+ * It initialize a deadline for a task.
+ * @author Sébastien Arola, Tanguy Heller
  *
  */
 public class Deadlines implements Command {
@@ -18,11 +20,18 @@ public class Deadlines implements Command {
 	private int year;
 	private TaskMap tasks;
 	
+	/**
+	 * Default constructor provide an empty constructor to have a useless command object.
+	 */
 	public Deadlines(){
 		
 	}
+	
 	/**
-	 * 
+	 * Use this constructor to use the command.
+	 * @param idT the task id
+	 * @param dt the date
+	 * @param tm the TaskMap
 	 */
 	public Deadlines(String idT, String dt, TaskMap tm) {
 		this.id = Integer.parseInt(idT);
@@ -43,10 +52,11 @@ public class Deadlines implements Command {
 	 */
 	@Override
 	public void run() {
+		// Find the task and stored the deadline
 		for( Project proj : this.tasks.getTasks().keySet()){
 			for( Task t : this.tasks.getTasks().get(proj) ){
 				if(t.getId()==this.id){
-					t.setDeadLines(this.day, this.month, this.year);
+					t.setDeadLines(this.day, this.month, this.year); // Stored the deadline
 				}
 			}
 		}

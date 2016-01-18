@@ -4,12 +4,17 @@
 package Modele;
 
 /**
- * @author seb
+ * This class stored all the project information.
+ * @author Sébastien Arola, Tanguy Heller
  *
  */
 public class Project {
 	private String pName ;
 	
+	/**
+	 * This constructor initialize a project with a name name.
+	 * @param name
+	 */
 	public Project(String name){
 		this.pName = name;
 	}

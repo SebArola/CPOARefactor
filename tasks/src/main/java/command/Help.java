@@ -4,14 +4,25 @@
 package command;
 
 /**
- * @author seb
+ * 
+ * The command DeleteTask is called when the user write delete task <task id> <project name>.
+ * Delete the task <task id>
+ * @author Sébastien Arola, Tanguy Heller
  *
  */
 public class Help implements Command{
+	
+	/**
+	 * Default constructor provide an empty constructor to have a useless command object.
+	 */
 	public Help(){
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see command.Command#man()
+	 */
+	@Override
 	public void run(){
 		  System.out.println("Commands:");
 		  System.out.println("  view");

@@ -10,7 +10,10 @@ import Modele.Task;
 import Modele.TaskMap;
 
 /**
- * @author seb
+ * 
+ * The command DeleteTask is called when the user write delete task <task id> <project name>.
+ * Delete the task <task id>
+ * @author Sébastien Arola, Tanguy Heller
  *
  */
 public class DeleteTask implements Command {
@@ -18,11 +21,18 @@ public class DeleteTask implements Command {
 	private String proj;
 	private TaskMap tasks;
 	
+	/**
+	 * Default constructor provide an empty constructor to have a useless command object.
+	 */
 	public DeleteTask(){
 		
 	}
+	
 	/**
-	 * 
+	 * Use this constructor to use the command.
+	 * @param tId the task id.
+	 * @param prj the project name.
+	 * @param tm
 	 */
 	public DeleteTask(String tId , String prj, TaskMap tm) {
 		try{
@@ -43,11 +53,14 @@ public class DeleteTask implements Command {
 	public void run() {
 		Task temp = new Task();
 		Project taskProj = null;
+		// Search the task's project.
 		for(Project pTemp : this.tasks.getTasks().keySet()){
 			if(pTemp.getpName().equals(this.proj)){
 				taskProj = pTemp;
 			}
 		}
+		
+		// Search the task.
 		List<Task> task = this.tasks.getTasks().get(taskProj);
 		   for (Task t : task){
 			   if(t.getId()==this.id){
@@ -55,6 +68,8 @@ public class DeleteTask implements Command {
 				   
 			   }
 		   }
+		   
+		   // Finnaly remove it.
 		   this.tasks.getTasks().get(taskProj).remove(temp);
 	}
 

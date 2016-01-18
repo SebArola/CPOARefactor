@@ -11,7 +11,10 @@ import Modele.Task;
 import Modele.TaskMap;
 
 /**
- * @author seb
+ * 
+ * The command Uncheck is called when the user write uncheck <task id> .
+ * Uncheck the task <task id>
+ * @author Sébastien Arola, Tanguy Heller
  *
  */
 public class Uncheck implements Command {
@@ -19,12 +22,17 @@ public class Uncheck implements Command {
 	private int id;
 	private TaskMap tasks;
 	
+	/**
+	 * Default constructor provide an empty constructor to have a useless command object.
+	 */
 	public Uncheck(){
 		
 	}
 
 	/**
-	 * 
+	 * Use this constructor to use the command.
+	 * @param idTask
+	 * @param tm
 	 */
 	public Uncheck(String idTask, TaskMap tm) {
 		try {
@@ -42,6 +50,8 @@ public class Uncheck implements Command {
 	 */
 	@Override
 	public void run() {
+		
+		// Like in Check.java it search the task and setDone  to false
 		for (Map.Entry<Project, List<Task>> project : this.tasks.getTasks().entrySet()) {
 			for (Task task : project.getValue()) {
 				if (task.getId() == this.id) {

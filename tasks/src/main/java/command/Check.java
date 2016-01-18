@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package command;
 
 import java.util.List;
@@ -11,7 +9,9 @@ import Modele.Task;
 import Modele.TaskMap;
 
 /**
- * @author seb
+ * The command Check is called when the user write check <task name>.
+ * It check the task design by <task name>.
+ * @author Sébastien Arola, Tanguy Heller
  *
  */
 public class Check implements Command{
@@ -19,11 +19,17 @@ public class Check implements Command{
 	private int id;
 	private TaskMap tasks;
 	
+	/**
+	 * Default constructor provide an empty constructor to have a useless command object.
+	 */
 	public Check(){
 		
 	}
+	
 	/**
-	 * 
+	 * Use this constructor to use the command.
+	 * @param idTask
+	 * @param tm
 	 */
 	public Check(String idTask, TaskMap tm) {
 		try{
@@ -39,14 +45,18 @@ public class Check implements Command{
 	 */
 	@Override
 	public void run() {
+		
+		// Find the task design by <task name> and set it done
 		for (Map.Entry<Project, List<Task>> project : this.tasks.getTasks().entrySet()) {
             for (Task task : project.getValue()) {
                 if (task.getId() == this.id) {
-                    task.setDone(true);
+                    task.setDone(true); // Check the task
                     return;
                 }
             }
         }
+		
+		// If the task is not find write this error message.
         System.out.printf("Could not find a task with an ID of %d.", this.id);
         System.out.println();
 		

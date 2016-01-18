@@ -4,7 +4,8 @@
 package Modele;
 
 /**
- * @author seb
+ * This stored data to create date in the format dd/mm/yyyy
+ * @author Sébastien Arola, Tanguy Heller
  *
  */
 public class Date {
@@ -12,6 +13,9 @@ public class Date {
 	private int month;
 	private int year;
 
+	/**
+	 * Set a default date. The date is 0/0/0
+	 */
 	public Date() {
 		setDay(0);
 		setMonth(0);
@@ -26,8 +30,8 @@ public class Date {
 	}
 
 	/**
-	 * @param day
-	 *            the day to set
+	 * @param day the day to set
+	 *  
 	 */
 	public void setDay(int day) {
 		this.day = day;
