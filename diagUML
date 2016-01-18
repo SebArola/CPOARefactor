@@ -1,0 +1,190 @@
+@startuml
+
+package "View" {
+	class ReadCMD {
+		-BufferedReader in
+		-PrintWriter out
+		+ReadCMD(BufferedReader reader, PrintWriter writer)
+		+String run()
+	}
+}
+
+package "Command" #DDDDDD {
+	class AddProject {
+		-String proj
+		-TaskMap taskMap
+		+AddProject()
+		+AddProject(String project, TaskMap tm)
+		+void run()
+		+void man(String input)
+	}
+
+	Command <|.. AddProject
+
+	class AddTask {
+		-String proj
+		-String taskDesc
+		-TaskMap taskMap
+		+AddTask()
+		+AddTask(String project, String taskDes, TaskMap tm)
+		+void run()
+		+void man(String input)
+	}
+
+	Command <|.. AddTask
+
+	class Check {
+		-int id
+		-TaskMap tasks
+		+Check()
+		+Check(String idTask, TaskMap tm)
+		+void run()
+		+void man(String input)
+	}
+
+	Command <|.. Check
+
+	interface Command {
+		void run()
+		void man(String input)
+	}
+
+	class Deadlines {
+		-int id
+		-int day
+		-int month
+		-int year
+		-TaskMap tasks
+		+Deadlines()
+		+Deadlines(String idT, String dt, TaskMap tm)
+		+void run()
+		+void man(String input)
+	}
+
+	Command <|.. Deadlines
+
+	class DeleteProject {
+		-String proj
+		-TaskMap tasks
+		+DeleteProject()
+		+DeleteProject(String prj, TaskMap tm)
+		+void run()
+		+void man(String input)
+	}
+
+	Command <|.. DeleteProject
+
+	class DeleteTask {
+		-int id
+		-String proj
+		-TaskMap tasks
+		+DeleteTask()
+		+DeleteTask(String tId, String prj, TaskMap tm)
+		+void run()
+		+void man(String input)
+	}
+
+	Command <|.. DeleteTask
+
+	class Help {
+		+Help()
+		+void run()
+		+void man(String input)
+	}
+
+	Command <|.. Help
+
+	class Uncheck {
+		-int id
+		-TaskMap tasks
+		+Uncheck()
+		+Uncheck(String idTask, TaskMap tm)
+		+void run()
+		+void man(String input)
+	}
+
+	Command <|.. Uncheck
+
+	class View {
+		~TaskMap taskMap
+		+View(TaskMap tm)
+		+void run()
+		+void man(String input)
+	}
+
+	Command <|.. View
+} 
+
+package "Controler" #DDDDDD {
+	class CtrlTask {
+		-TaskMap tasks
+		-Command cmd
+		+CtrlTask()
+		+void run(String commandLine)
+		-void error(String command)
+	}
+
+	class Launcher {
+		-{static}String QUIT
+		+{static}void main(String[] args)
+	}
+	
+	
+}
+
+package "Modele" {
+	class TaskMap {
+		-{static}long lastId
+		-Map<Project,List<Task>> tasks
+		+TaskMap()
+		+Map<Project,List<Task>> getTasks()
+		+{static}long nextId()
+	}
+	class Date {
+		-int day
+		-int month
+		-int year
+		+Date()
+		+int getDay()
+		+void setDay(int day)
+		+int getMonth()
+		+void setMonth(int month)
+		+int getYear()
+		+void setYear(int year)
+	}
+
+	class Project {
+		-String pName
+		+Project(String name)
+		+String getpName()
+		+void setpName(String pName)
+	}
+
+	class Task {
+		-long id
+		-String description
+		-boolean done
+		-Date deadLines
+		+Task(long id, String description, boolean done)
+		+Task()
+		+long getId()
+		+String getDescription()
+		+boolean isDone()
+		+void setDone(boolean done)
+		+void setDeadLines(int d, int m, int y)
+		+String getDeadLines()
+	}
+
+	
+	
+	
+	
+}
+	CtrlTask o-- Command
+	CtrlTask o-- TaskMap
+	Launcher --"1" CtrlTask
+	Launcher --"1" ReadCMD
+	TaskMap *-- Task
+	TaskMap *-- Project
+	Task o-- Date
+@enduml
